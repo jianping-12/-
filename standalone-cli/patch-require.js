@@ -1,4 +1,4 @@
-const Module = require("node:module")
+const Module = require('node:module')
 
 /**
  * @param {Record<string, any>} mods
@@ -19,7 +19,7 @@ module.exports.patchRequire = function patchRequire(mods, parentCache) {
       origRequire,
 
       {
-        resolve (id) {
+        resolve(id) {
           // Defer to the "parent" require cache when resolving the module
           // This also requires that the module be provided as a "native module" to JITI
 
@@ -32,7 +32,7 @@ module.exports.patchRequire = function patchRequire(mods, parentCache) {
           }
 
           return origRequire.resolve.apply(this, arguments)
-        }
+        },
       }
     )
   }
@@ -45,8 +45,6 @@ module.exports.patchRequire = function patchRequire(mods, parentCache) {
 
   // And any "require" created by the "createRequire" method
   Module.createRequire = function () {
-    return wrapRequire(
-      origCreateRequire.apply(this, arguments)
-    )
+    return wrapRequire(origCreateRequire.apply(this, arguments))
   }
 }

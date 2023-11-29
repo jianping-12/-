@@ -25,18 +25,20 @@ let localModules = {
 
 // Swap out the default JITI implementation with one that has the built-in modules above preloaded as "native modules"
 // NOTE: This uses a private, internal API of Tailwind CSS and is subject to change at any time
-let { useCustomJiti } = require("tailwindcss/lib/lib/load-config")
+let { useCustomJiti } = require('tailwindcss/lib/lib/load-config')
 let { transform } = require('sucrase')
 
-useCustomJiti(() => require('jiti')(__filename, {
-  interopDefault: true,
-  nativeModules: Object.keys(localModules),
-  transform: (opts) => {
-    return transform(opts.source, {
-      transforms: ['typescript', 'imports'],
-    })
-  },
-}))
+useCustomJiti(() =>
+  require('jiti')(__filename, {
+    interopDefault: true,
+    nativeModules: Object.keys(localModules),
+    transform: (opts) => {
+      return transform(opts.source, {
+        transforms: ['typescript', 'imports'],
+      })
+    },
+  })
+)
 
 let { patchRequire } = require('./patch-require.js')
 patchRequire(
