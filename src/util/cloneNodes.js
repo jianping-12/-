@@ -34,7 +34,6 @@ export default function cloneNodes(nodes, source = undefined, raws = undefined) 
   })
 }
 
-
 /**
  * Traverse a tree of nodes and don't traverse children if the callback
  * returns false. Ideally we'd use Container#walk instead of this
